@@ -1,0 +1,26 @@
+import random
+
+responses = {}
+
+with open("D:/T.E/responses.txt", "r") as file:
+    for line in file:
+        key, response_str = line.strip().split(": ")
+        responses[key] = response_str.split("|")
+
+def get_response(user_input):
+    user_input = user_input.lower()
+    for key in responses:
+        if key in user_input:
+            return random.choice(responses[key])
+    return "I can't understand this."
+
+print("Chatbot: How can I assist you?")
+
+while True:
+    user_input = input("You: ")
+    if user_input.lower() == "exit":  # Corrected this line
+        print("Chatbot: Goodbye")
+        break
+
+    response = get_response(user_input)
+    print("Chatbot:", response)
