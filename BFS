@@ -1,0 +1,60 @@
+
+from collections import defaultdict, deque
+
+class Graph:
+    def __init__(self):
+        self.graph = defaultdict(list)
+
+    def add_edge(self, u, v):
+        self.graph[u].append(v)
+        self.graph[v].append(u)  # For an undirected graph, add edges in both directions.
+
+    def bfs(self, start_node):
+        visited = {node: False for node in self.graph}
+        queue = deque()
+
+        queue.append(start_node)
+        visited[start_node] = True
+
+        while queue:
+            node = queue.popleft()
+            print(node, end=' ')
+
+            for neighbor in self.graph[node]:
+                if not visited[neighbor]:
+                    queue.append(neighbor)
+                    visited[neighbor] = True
+
+if __name__ == "__main__":
+    g = Graph()
+    
+    num_edges = int(input("Enter the number of edges: "))
+    
+    for _ in range(num_edges):
+        u, v = map(int, input("Enter edge (u v): ").split())
+        g.add_edge(u, v)
+    
+    start_node = int(input("Enter the starting node for BFS: "))
+    
+    print("Breadth-First Search starting from node", start_node, ":")
+    g.bfs(start_node)
+
+
+
+
+
+# Enter the number of edges: 4
+# Enter edge (u v): 0 1
+# Enter edge (u v): 0 2
+# Enter edge (u v): 1 2
+# Enter edge (u v): 2 3
+# Enter the starting node for BFS: 0
+
+# Breadth-First Search starting from node 0 :
+# 0 1 2 3
+
+
+
+
+
+
