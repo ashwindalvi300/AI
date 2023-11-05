@@ -1,0 +1,53 @@
+-- Create a view on the Account table selecting two columns
+CREATE VIEW AccountView AS
+SELECT Acc_no, balance
+FROM Account;
+
+-- Insert data into the view (this will affect the underlying table)
+INSERT INTO AccountView (Acc_no, balance) VALUES (101, 1000.00);
+
+-- Update data in the view (this will affect the underlying table)
+UPDATE AccountView
+SET balance = 1200.00
+WHERE Acc_no = 101;
+
+-- Delete data from the view (this will affect the underlying table)
+DELETE FROM AccountView WHERE Acc_no = 101;
+
+
+
+-- Create a view on Account and Branch tables selecting one column from each
+CREATE VIEW AccountBranchView AS
+SELECT Acc_no, branch_city
+FROM Account
+JOIN Branch ON Account.branch_name = Branch.branch_name;
+
+-- Insert data into the view (this will affect the underlying tables)
+INSERT INTO AccountBranchView (Acc_no, branch_city) VALUES (102, 'New York');
+
+-- Update data in the view (this will affect the underlying tables)
+UPDATE AccountBranchView
+SET branch_city = 'Los Angeles'
+WHERE Acc_no = 102;
+
+-- Delete data from the view (this will affect the underlying tables)
+DELETE FROM AccountBranchView WHERE Acc_no = 102;
+
+
+
+-- Create an updatable view on the Account table
+CREATE VIEW AccountUpdatableView AS
+SELECT Acc_no, balance
+FROM Account
+WITH CHECK OPTION;
+
+-- Insert data into the updatable view (this will affect the underlying table)
+INSERT INTO AccountUpdatableView (Acc_no, balance) VALUES (103, 1500.00);
+
+-- Update data in the updatable view (this will affect the underlying table)
+UPDATE AccountUpdatableView
+SET balance = 1600.00
+WHERE Acc_no = 103;
+
+-- Delete data from the updatable view (this will affect the underlying table)
+DELETE FROM AccountUpdatableView WHERE Acc_no = 103;
